@@ -18,7 +18,7 @@ class Room {
     this.server.on("connection", socket => this.join(socket));
 
     this.host.on("game.start", config => {
-      this.timer(() => this.start(config), 5);
+      this.transition(() => this.start(config));
       this.message("Host has started the game");
     });
 
@@ -36,6 +36,10 @@ class Room {
 
   timer(callback, seconds) {
     return new Timer(callback, seconds * 1000);
+  }
+
+  transition(callback) {
+    return this.timer(callback, settings["timers.transition"]);
   }
 
   log(message) {
