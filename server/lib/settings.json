@@ -1,0 +1,7 @@
+{
+  "timers.answering": 60,
+  "timers.voting": 10,
+  "timers.transition": 2,
+  "players.min": 3,
+  "players.max": 8
+}

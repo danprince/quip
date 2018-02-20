@@ -1,0 +1,32 @@
+.message {
+  padding: 10px 20px;
+  border: solid 2px black;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.message-title {
+  font-size: 16pt;
+}
+
+.message-body {
+
+}
+
+.message-type-error {
+  background: #fff1f1;
+  border-color: #d03737;
+  color: #ab1615;
+}
+
+.message-type-warning {
+  background: #fffbf1;
+  border-color: #d08c37;
+  color: #ab6815;
+}
+
+.message-type-success {
+  background: #f1fff5;
+  border-color: #37d089;
+  color: #15ab7b;
+}

@@ -1,0 +1,25 @@
+.animated-ellipsis:before {
+  content: "...";
+  animation: animate 2s infinite;
+  color: #aaa;
+  display: inline-block;
+  min-height: 1em;
+}
+
+@keyframes animate {
+  0% {
+    content: "   ";
+  }
+
+  30% {
+    content: ".  ";
+  }
+
+  60% {
+    content: ".. ";
+  }
+
+  90% {
+    content: "...";
+  }
+}

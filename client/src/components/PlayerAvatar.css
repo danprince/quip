@@ -1,0 +1,28 @@
+.player-avatar {
+  display: inline-block;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+}
+
+.player-avatar-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: solid 2px #444;
+  background: #eee;
+  display: inline-block;
+  position: relative;
+}
+
+.player-avatar-label {
+  padding: 0 5px;
+  border: solid 2px #333;
+  border-radius: 5px;
+  min-width: 20px;
+  background: white;
+  position: relative;
+  z-index: 10;
+  display: inline-block;
+  transform: translateY(-20px);
+}

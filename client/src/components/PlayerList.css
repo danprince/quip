@@ -1,0 +1,13 @@
+.player-list {
+
+}
+
+.player-list-items {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.player-list-item {
+  display: inline-block;
+}
