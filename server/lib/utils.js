@@ -11,6 +11,10 @@ function uid(length=8) {
   return chars.join("");
 }
 
+function id(prefix, length) {
+  return `${prefix}-${uid(length)}`;
+}
+
 function pairs(xs) {
   let pairs = [];
   let ys = [...xs];
@@ -32,5 +36,6 @@ function pairs(xs) {
 module.exports = {
   random,
   uid,
+  id,
   pairs
 }
