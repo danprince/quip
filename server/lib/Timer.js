@@ -1,8 +1,10 @@
 let EventEmitter = require("events");
+let utils = require("./utils");
 
 class Timer extends EventEmitter {
   constructor(callback, ms) {
     super();
+    this.id = utils.id("timer");
     this.duration = ms;
     this.callback = callback;
     this.timeout = undefined;
@@ -10,7 +12,7 @@ class Timer extends EventEmitter {
 
   start() {
     this.started = Date.now();
-    this.timeout = setTimeout(() => this.done(), this.duration);
+    this.timeout = setTimeout(() => this.stop(), this.duration);
     this.emit("start");
   }
 
@@ -20,9 +22,16 @@ class Timer extends EventEmitter {
     this.done();
   }
 
-  done() {
+  stop() {
     this.emit("stop");
     this.callback();
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      duration: this.duration
+    }
   }
 }
 
