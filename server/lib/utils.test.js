@@ -30,28 +30,18 @@ test("utils.uid", t => {
 });
 
 test("utils.pairs", t => {
-  let ids = ["a", "b", "c"];
+  let ids = ["a", "b", "c", "d"];
   let pairs = utils.pairs(ids);
 
-  t.is(pairs.length, 3, "should be a pair for each id");
+  t.is(pairs.length, ids.length, "should be a pair for each id");
 
-  t.is(
-    pairs.filter(pair => pair.includes("a")).length,
-    2,
-    "should be two pairs that include 'a'"
-  );
-
-  t.is(
-    pairs.filter(pair => pair.includes("b")).length,
-    2,
-    "should be two pairs that include 'b'"
-  );
-
-  t.is(
-    pairs.filter(pair => pair.includes("c")).length,
-    2,
-    "should be two pairs that include 'c'"
-  );
+  for (let id of ids) {
+    t.is(
+      pairs.filter(pair => pair.includes(id)).length,
+      2,
+      `should be two pairs that include '${id}'`
+    );
+  }
 
   t.same(
     pairs.filter(pair => pair[0] === pair[1]),
