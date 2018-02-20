@@ -1,29 +1,27 @@
-class Timer {
+let EventEmitter = require("events");
+
+class Timer extends EventEmitter {
   constructor(callback, ms) {
+    super();
     this.duration = ms;
-    this.remaining = this.duration;
     this.callback = callback;
+    this.timeout = undefined;
+  }
+
+  start() {
     this.started = Date.now();
-    this.timeout = setTimeout(this.callback, this.remaining);
-  }
-
-  cancel() {
-    clearTimeout(this.timeout);
-  }
-
-  pause() {
-    let elapsed = Date.now() - this.started;
-    this.remaining -= elapsed;
-    this.cancel();
-  }
-
-  resume() {
-    this.started = Date.now();
-    this.timeout = setTimeout(this.callback, this.remaining);
+    this.timeout = setTimeout(() => this.done(), this.duration);
+    this.emit("start");
   }
 
   skip() {
-    this.cancel();
+    clearTimeout(this.timeout);
+    this.emit("skip");
+    this.done();
+  }
+
+  done() {
+    this.emit("stop");
     this.callback();
   }
 }
