@@ -15,6 +15,8 @@ export default {
     socket.on("game.reveal", actions.onGameReveal);
     socket.on("game.finish", actions.onGameFinish);
     socket.on("game.resolve", actions.onGameResolve);
+    socket.on("timer.start", actions.onTimerStart);
+    socket.on("timer.stop", actions.onTimerStop);
     socket.on("room.message", actions.onRoomMessage);
     socket.on("room.init", actions.switchToHosting);
 
@@ -125,6 +127,14 @@ export default {
 
   onGameFinish: event => state => {
     return { mode: "scores" };
+  },
+
+  onTimerStart: timer => (state, actions) => {
+    return { timer };
+  },
+
+  onTimerStop: event => (state, actions) => {
+    return { timer: undefined };
   },
 
   onRoomMessage: event => (state, actions) => {

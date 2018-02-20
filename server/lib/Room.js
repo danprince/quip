@@ -34,12 +34,21 @@ class Room {
     this.emit("room.message", { text });
   }
 
-  timer(callback, seconds) {
-    return new Timer(callback, seconds * 1000);
+  timer(callback, seconds, notify=true) {
+    let timer = new Timer(callback, seconds * 1000);
+
+    if (notify) {
+      timer.on("start", () => this.emit("timer.start", timer))
+      timer.on("stop", () => this.emit("timer.stop", timer));
+    }
+
+    timer.start();
+
+    return timer;
   }
 
   transition(callback) {
-    return this.timer(callback, settings["timers.transition"]);
+    return this.timer(callback, settings["timers.transition"], false);
   }
 
   log(message) {

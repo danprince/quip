@@ -17,6 +17,7 @@ let state = {
   message: undefined,
   me: undefined,
   error: undefined,
+  timer: undefined,
   currentPrompt: undefined,
   round: 0,
   players: [],
