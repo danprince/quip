@@ -1,0 +1,21 @@
+.answer-editor {
+  padding: 20px;
+  border-radius: 5px;
+  border: solid 2px #eee;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.answer-editor-prompt {
+  text-align: left;
+  margin-top: 0;
+}
+
+.answer-editor-input {
+  border: 0;
+  font-size: 18pt;
+  color: #222;
+  width: 100%;
+  outline: none;
+}

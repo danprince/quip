@@ -57,11 +57,11 @@ class Room {
 
   join(socket) {
     if (this.hasStarted()) {
-      return socket.emit("err", { message: "Game has already started" });
+      return socket.emit("err", "Game has already started");
     }
 
     if (this.isFull()) {
-      return socket.emit("err", { message: "Game is full" });
+      return socket.emit("err", "Game is full");
     }
 
     let id = `player-${utils.uid()}`;
@@ -181,8 +181,8 @@ class Room {
   startVoting() {
     this.log("start voting");
 
-    let prompt = this.game.prompts[0];
-    let answers = this.game.getAnswersForPrompt();
+    let prompt = this.game.currentPrompt();
+    let answers = this.game.getAnswersForPrompt(prompt.id);
     this.emit("game.resolve", { prompt, answers });
 
     this.timers.voting = this.timer(
@@ -197,6 +197,7 @@ class Room {
     let prompt = this.game.currentPrompt();
     let scores = this.game.calculateScores(prompt.id);
 
+    this.emit("game.reveal");
     this.game.applyScores(scores);
     this.game.removeCurrentPrompt();
 
@@ -208,7 +209,7 @@ class Room {
   }
 
   hasStarted() {
-    return Boolean(this.game && this.game.started === false);
+    return Boolean(this.game);
   }
 
   isFull() {
@@ -216,7 +217,7 @@ class Room {
   }
 
   getPlayers() {
-    return this.clients.map(client => ({ id: client.id }))
+    return this.clients.map(client => ({ id: client.id, score: 0 }))
   }
 }
 

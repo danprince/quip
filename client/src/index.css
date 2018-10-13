@@ -3,7 +3,7 @@ body {
   font-size: 14pt;
 }
 
-button, input {
+button, input, textarea {
   font: inherit;
 }
 
@@ -21,6 +21,7 @@ button {
   transition-duration: 300ms;
   transform: translateY(-3px);
   cursor: pointer;
+  user-select: none;
 }
 
 button.blue {

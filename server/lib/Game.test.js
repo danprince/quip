@@ -160,8 +160,6 @@ test("Game", t => {
     "dan should win prompt c"
   );
 
-  game.on("reveal", () => t.pass("should emit 'reveal' event"));
-
   game.endRound();
 
   t.is(game.findPlayer("dan").score, 200, "dan should have 200 points");

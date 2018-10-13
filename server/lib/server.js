@@ -9,6 +9,8 @@ let rooms = {};
 server.use(middleware.errorHandling);
 
 server.on("connection", socket => {
+  log.info("socket connected");
+
   socket.on("room.setup", () => {
     let room = new Room(server, socket);
     rooms[room.id] = room;

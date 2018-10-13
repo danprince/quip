@@ -1,9 +1,11 @@
 import io from "socket.io-client";
+import { delay } from "./helpers";
 
 export default {
   setup: () => (state, actions) => {
     let socket = io(`http://localhost:3333/${state.id}`);
     socket.on("err", actions.onError);
+    socket.on("error", actions.onFatalError);
     socket.on("player.join", actions.onPlayerJoin);
     socket.on("player.leave", actions.onPlayerLeave);
     socket.on("player.rename", actions.onPlayerRename);
@@ -20,7 +22,7 @@ export default {
     socket.on("room.message", actions.onRoomMessage);
     socket.on("room.init", actions.switchToHosting);
 
-    setTimeout(actions.initialize, 100);
+    delay(actions.initialize);
 
     return { socket };
   },
@@ -55,11 +57,13 @@ export default {
   },
 
   onError: error => state => {
-    if (error === "Invalid namespace") {
-      return { error: "This room does not exist" };
-    }
-
+    console.error("Error:", error);
     return { error }
+  },
+
+  onFatalError: error => state => {
+    console.error("Fatal Error", error);
+    return { error };
   },
 
   onPlayerJoin: id => state => {
@@ -130,15 +134,36 @@ export default {
   },
 
   onTimerStart: timer => (state, actions) => {
-    return { timer };
+    if (state.timer === undefined) {
+      delay(actions.onTimerTick);
+    }
+
+    return { timer: { ...timer, ticks: 0 } };
   },
 
   onTimerStop: event => (state, actions) => {
     return { timer: undefined };
   },
 
+  onTimerTick: () => (state, actions) => {
+    let { timer } = state;
+
+    if (timer === undefined) {
+      return {};
+    }
+
+    let now = Date.now();
+    let ended = now > timer.ending;
+
+    if (!ended) {
+      delay(actions.onTimerTick, 1000);
+    }
+
+    return { ...timer, ticks: timer.ticks + 1 };
+  },
+
   onRoomMessage: event => (state, actions) => {
-    setTimeout(actions.hideMessage, 2000);
+    delay(actions.hideMessage, 2000);
     return { message: event };
   },
 
@@ -163,5 +188,30 @@ export default {
   loadName: () => (state, actions) => {
     actions.changeName(localStorage.name);
     actions.saveName();
+  },
+
+  submitAnswer: event => (state, actions) => {
+    let text = state.answerInputs[event.prompt];
+    let answer = { prompt: event.prompt, text };
+    state.socket.emit("game.answer", answer);
+    actions.removePrompt(answer.prompt);
+  },
+
+  editAnswer: event => state => {
+    let answerInputs = {
+      ...state.answerInputs,
+      [event.prompt]: event.text
+    };
+
+    return { answerInputs };
+  },
+
+  removePrompt: id => state => {
+    let prompts = state.prompts.filter(prompt => prompt.id !== id);
+    return { prompts };
+  },
+
+  vote: answerId => state => {
+    state.socket.emit("game.vote", { answer: answerId });
   }
 };

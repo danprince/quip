@@ -5,6 +5,9 @@ import Container from "../components/Container";
 import Title from "../components/Title";
 import Subtitle from "../components/Subtitle";
 
+import AnswerEditor from "../components/AnswerEditor";
+import AnswerVoter from "../components/AnswerVoter";
+
 function Home({ state, actions }) {
   let id = state.id;
   let invalid = id.length < 4;

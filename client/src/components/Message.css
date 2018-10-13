@@ -3,6 +3,9 @@
   border: solid 2px black;
   border-radius: 5px;
   display: inline-block;
+  position: fixed;
+  top: 20px;
+  left: 20px;
 }
 
 .message-title {

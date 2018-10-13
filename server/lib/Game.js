@@ -154,8 +154,6 @@ class Game extends EventEmitter {
   }
 
   applyScores(results) {
-    this.emit("reveal");
-
     for (let result of results) {
       let player = this.findPlayer(result.player);
 
@@ -168,6 +166,7 @@ class Game extends EventEmitter {
   }
 
   // FIXME: Prefer to let the room handle this, scoring each prompt
+  // Think I'm still using this in some tests
   endRound() {
     for (let prompt of this.prompts) {
       let scores = this.calculateScores(prompt.id);

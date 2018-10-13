@@ -1,11 +1,11 @@
-.player-avatar {
+.player {
   display: inline-block;
   text-align: center;
   width: 100px;
   height: 100px;
 }
 
-.player-avatar-image {
+.player-image {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -15,7 +15,7 @@
   position: relative;
 }
 
-.player-avatar-label {
+.player-label {
   padding: 0 5px;
   border: solid 2px #333;
   border-radius: 5px;
@@ -24,5 +24,9 @@
   position: relative;
   z-index: 10;
   display: inline-block;
-  transform: translateY(-20px);
+}
+
+.player-score {
+  font-weight: bold;
+  font-size: 16pt;
 }

@@ -6,6 +6,7 @@ class Timer extends EventEmitter {
     super();
     this.id = utils.id("timer");
     this.duration = ms;
+    this.ending = Date.now() + this.duration;
     this.callback = callback;
     this.timeout = undefined;
   }
@@ -19,18 +20,20 @@ class Timer extends EventEmitter {
   skip() {
     clearTimeout(this.timeout);
     this.emit("skip");
-    this.done();
+    this.stop();
   }
 
   stop() {
     this.emit("stop");
     this.callback();
+    this.removeAllListeners();
   }
 
   toJSON() {
     return {
       id: this.id,
-      duration: this.duration
+      duration: this.duration,
+      ending: this.ending
     }
   }
 }

@@ -1,0 +1,9 @@
+.answer-voter {
+  display: inline-block;
+  padding: 20px;
+  border-radius: 5px;
+  border: solid 2px #eee;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}

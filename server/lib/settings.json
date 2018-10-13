@@ -1,7 +1,9 @@
 {
   "timers.answering": 60,
-  "timers.voting": 10,
+  "timers.voting": 20,
   "timers.transition": 2,
   "players.min": 3,
-  "players.max": 8
+  "players.max": 8,
+  "game.rounds": 3,
+  "game.packs": ["default"]
 }

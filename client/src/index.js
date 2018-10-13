@@ -4,26 +4,35 @@ import actions from "./actions";
 import * as apps from "./apps";
 import * as helpers from "./helpers";
 import Message from "./components/Message";
+import Timer from "./components/Timer";
 
 let id = helpers.parseRoomId();
 
 let state = {
+  // Meta state
   socket: undefined,
   connected: false,
   mode: id ? "play" : "home",
   status: "setup",
-  name: "",
-  id: id,
+
+  // UI state
   message: undefined,
-  me: undefined,
   error: undefined,
   timer: undefined,
-  currentPrompt: undefined,
+
+  // Game state
+  id: id,
   round: 0,
   players: [],
   prompts: [],
   answers: [],
   votes: [],
+
+  // Utility state
+  name: "",
+  me: undefined,
+  currentPrompt: undefined,
+  answerInputs: {}
 };
 
 let router = {
@@ -38,6 +47,7 @@ let view = (state, actions) => {
 
   return (
     <div class="view" oncreate={actions.setup}>
+      {state.timer && <Timer timer={state.timer} />}
       {state.message && <Message>{state.message.text}</Message>}
       <App state={state} actions={actions} />
     </div>

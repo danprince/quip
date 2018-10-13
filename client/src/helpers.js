@@ -4,6 +4,6 @@ export function parseRoomId() {
   return (hash || path).toLowerCase();
 }
 
-export function timer() {
-
+export function delay(fn, ms=0) {
+  return setTimeout(fn, ms);
 }

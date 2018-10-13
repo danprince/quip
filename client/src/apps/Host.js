@@ -3,6 +3,8 @@ import App from "../components/App";
 import Container from "../components/Container";
 import PlayerList from "../components/PlayerList";
 import CodeViewer from "../components/CodeViewer";
+import Prompt from "../components/Prompt";
+import Answer from "../components/Answer";
 import Document from "../components/Document";
 import settings from "../settings";
 import * as selectors from "../selectors";
@@ -41,15 +43,27 @@ let router = {
       <div>
         <Document title="Answering" />
         <h1>Answering</h1>
+        <Container>
+          <PlayerList players={state.players} showScores />
+        </Container>
       </div>
     );
   },
 
   voting({ state, actions }) {
+    let { players, answers, currentPrompt } = state;
+
     return (
       <div>
         <Document title="Voting" />
-        <h1>Voting</h1>
+        <Container>
+          <Prompt prompt={currentPrompt} />
+        </Container>
+        <Container>
+          {answers.map(answer =>
+            <Answer key={answer.id} answer={answer} />
+          )}
+        </Container>
       </div>
     );
   }
